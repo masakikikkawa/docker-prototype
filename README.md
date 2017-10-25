@@ -32,7 +32,7 @@ $ ping mysql
 　64 bytes from 172.23.0.3: icmp_seq=2 ttl=64 time=0.261 ms
 　64 bytes from 172.23.0.3: icmp_seq=3 ttl=64 time=0.216 ms
 
-#### .envを編集
+# .envを編集
 $ vi .env
 DB_HOST=172.18.0.3   #pingで確認したipを記載
 DB_DATABASE=prototype_db
