@@ -1,0 +1,38 @@
+version: '2'
+services:
+  mysql:
+    build:
+      context: ./Dockerfiles/mysql/
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: prototype_db
+      MYSQL_USER: prototype
+      MYSQL_PASSWORD: "PrototypeP@ss"
+    volumes:
+      - prototype-db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  app:
+    build: Dockerfiles/app/.
+    environment:
+      CI_ENV: development
+    volumes:
+      - ./src:/var/www/html
+    links:
+      - mysql
+      - redis
+    ports:
+      - "80:80"
+  redis:
+    restart: always
+    image: redis:latest
+    volumes:
+        - ./redis:/data
+    ports:
+        - "6379:6379"
+    command: redis-server --appendonly yes
+
+volumes:
+  prototype-db:
+    driver: local
